@@ -1,8 +1,10 @@
 <?php
+include 'core.php';
 if(!isset($_GET['page'])){
   $page = 'users';
 }else{
-  $page = $_GET['page'];
+  $page = decryptData(urldecode($_GET['page']),'page');
+  // echo $page;die;
 }
 
 ?>
@@ -103,13 +105,13 @@ if(!isset($_GET['page'])){
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="index.php?page=users">
+            <a href="index.php?page=<?=encryptData('users','page')?>">
               <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
           <li>
-            <a href="components-spinners.html">
-              <i class="bi bi-circle"></i><span>Spinners</span>
+            <a href="index.php?page=<?=encryptData('product','page')?>">
+              <i class="bi bi-circle"></i><span>Product</span>
             </a>
           </li>
           <li>
@@ -144,7 +146,7 @@ if(!isset($_GET['page'])){
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Blank Page</h1>
+      <h1><?=ucwords($page)?></h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -157,7 +159,12 @@ if(!isset($_GET['page'])){
     <section class="section">
 
     <?php 
+    if (file_exists('page/'.$page.'.php')){
     include 'page/'.$page.'.php';
+    }else{
+      // echo '<script>document.location="page/error.html"</script>';
+      // header('Location:page/error.html');
+    }
     
     ?>
       <!-- <div class="row">

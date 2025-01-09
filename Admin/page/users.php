@@ -1,8 +1,8 @@
 <?php
 
 
-include 'core.php';
-$users = ambil_data_user();
+// include 'core.php';
+$users = ambil_data('users');
 
 // var_dump($users);
 ?>

@@ -14,9 +14,9 @@ try {
     echo "Gagal membuat database: " . $e->getMessage();
 }
 
-function ambil_data_user(){
+function ambil_data($table){
     global $pdo;
-    $query = "SELECT * FROM users";
+    $query = "SELECT * FROM $table";
     $statement = $pdo->prepare($query);
     $statement->execute();
 
@@ -64,4 +64,49 @@ function hapususermodel($id_user) {
     }
     
 }
-?>
+function tambahprodukmodel($judul,$harga,$gbr) {
+    global $pdo;
+    $query = "INSERT INTO produk (judul, harga,gambar) VALUES (:judul, :harga, :gambar)";
+
+    // Persiapan statement
+    $statement = $pdo->prepare($query);
+
+    // Bind parameter ke statement
+    $statement->bindParam(':judul', $judul);
+    $statement->bindParam(':harga', $harga);
+    $statement->bindParam(':gambar', $gbr);
+
+    // Eksekusi statement
+    if ($statement->execute()) {
+        // echo "Data berhasil ditambahkan!";
+        $page = encryptData('product','page');
+        echo "<script>document.location='index.php?page=$page'</script>";
+    } else {
+        echo "Gagal menambahkan data.";
+    }
+}
+
+
+function hapus_produk_model($id_produk) {
+    global $pdo;
+    $query = "DELETE FROM produk WHERE id_produk = :id_produk";
+
+    // Persiapan statement
+    $statement = $pdo->prepare($query);
+
+    // Bind parameter :id dengan nilai yang ingin dihapus
+    $statement->bindParam(':id_produk', $id_produk, PDO::PARAM_INT);
+
+    // Eksekusi statement
+    if ($statement->execute()) {
+        // echo "Data dengan ID $id_produk berhasil dihapus!";
+        $page = encryptData('product','page');
+        // echo $page;die;
+        echo "<script>
+        alert('Data Berhasil Dihapus');</script>";
+        header("Location:index.php?page=$page");
+
+    } else {
+        echo "Gagal menghapus data.";
+    } 
+}
