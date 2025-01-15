@@ -17,7 +17,7 @@ $products = ambil_data('produk');
                 <h5 class="modal-title">Tambah Produk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="core.php?aksi=<?=encryptData('tambahproduk','aksi')?>" method="POST" enctype="multipart/form-data">
+            <form action="core.php?aksi=tambahproduk" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                 <div class="row mb-3">
                   <label for="inputEmail3" class="col-sm-2 col-form-label">Judul</label>
@@ -60,7 +60,7 @@ $products = ambil_data('produk');
                       <h6>Product Settings</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="core.php?aksi=<?=encryptData('hapusproduk','aksi')?>&token=<?=encryptData($product['id_produk'],'id_produk')?>">Hapus</a></li>
+                    <li><a class="dropdown-item" href="core.php?aksi=hapusproduk&token=<?=($product['id_produk'])?>">Hapus</a></li>
                     <li><a class="dropdown-item" href="#">-</a></li>
                     <li><a class="dropdown-item" href="#">-</a></li>
                   </ul>

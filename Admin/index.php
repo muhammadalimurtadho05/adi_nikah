@@ -3,7 +3,7 @@ include 'core.php';
 if(!isset($_GET['page'])){
   $page = 'users';
 }else{
-  $page = decryptData(urldecode($_GET['page']),'page');
+  $page = (($_GET['page']));
   // echo $page;die;
 }
 
@@ -105,12 +105,12 @@ if(!isset($_GET['page'])){
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="index.php?page=<?=encryptData('users','page')?>">
+            <a href="index.php?page=users">
               <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
           <li>
-            <a href="index.php?page=<?=encryptData('product','page')?>">
+            <a href="index.php?page=product">
               <i class="bi bi-circle"></i><span>Product</span>
             </a>
           </li>
@@ -160,9 +160,9 @@ if(!isset($_GET['page'])){
 
     <?php 
     if (file_exists('page/'.$page.'.php')){
-    include 'page/'.$page.'.php';
+      include 'page/'.$page.'.php';
     }else{
-      // echo '<script>document.location="page/error.html"</script>';
+      echo '<script>document.location="page/error.html"</script>';
       // header('Location:page/error.html');
     }
     
